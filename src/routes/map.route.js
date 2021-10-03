@@ -1,24 +1,36 @@
-const {  Router } = require("express")
-const { body } = require("express-validator")
-const validationMiddleware = require("../middlewares/validation.middleware")
+const { Router } = require('express');
+const { body } = require('express-validator');
+const validationMiddleware = require('../middlewares/validation.middleware');
+const CustomError = require('../utils/errors/custom-error');
+const mapService = require('../services/map.service');
 
 const router = Router();
 
 const validations = {
-  email: body('email').isEmail().withMessage('Email must be valid.'),
+  float(key) {
+    return body(key)
+      .isFloat()
+      .withMessage(`${key} coordinate should be (float) provided.`);
+  },
 };
 
-router.get(
+router.post(
   '/',
-  [validations.email, validationMiddleware],
+  [
+    validations.float('left'),
+    validations.float('right'),
+    validations.float('top'),
+    validations.float('bottom'),
+    validationMiddleware,
+  ],
   async (req, res, next) => {
-    const { name = '', phone = '', email, message = '' } = req.body;
+    const { left, right, top, bottom } = req.body;
 
     try {
-      const { contactUs: contactUsEmailConfig } = config.emails;
-      res.status(200).json({ status: 'send' })
-    } catch (error) {
-      next(error);
+      const r = await mapService.getGEOJSON({ left, right, top, bottom });
+      res.status(200).json({ r });
+    } catch ({ response }) {
+      next(new CustomError(response.data));
     }
   }
 );

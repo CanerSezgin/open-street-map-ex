@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
+const errorHandler = require('./utils/errorHandler');
 
 const app = express();
 
@@ -26,9 +27,7 @@ app.all('*', (req, res) => {
   res.status(404).json({ message: 'route not found' });
 });
 
-// TODO: implement more generic error handler
-app.use((err, req, res, next) => {
-  res.status(400).json(...err);
-});
+
+app.use(errorHandler);
 
 module.exports = app;
