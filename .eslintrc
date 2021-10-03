@@ -1,0 +1,18 @@
+{
+  "extends": ["eslint-config-semistandard", "plugin:json/recommended"],
+  "plugins": ["prefer-arrow"],
+  "rules": {
+    "no-prototype-builtins": 0,
+    "prefer-arrow/prefer-arrow-functions": [
+      "warn",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ]
+  },
+  "globals": {
+    "ENUM": "readonly"
+  }
+}

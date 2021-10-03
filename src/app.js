@@ -27,7 +27,6 @@ app.all('*', (req, res) => {
   res.status(404).json({ message: 'route not found' });
 });
 
-
 app.use(errorHandler);
 
 module.exports = app;

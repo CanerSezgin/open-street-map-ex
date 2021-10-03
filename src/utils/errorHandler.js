@@ -1,4 +1,4 @@
-const CustomError = require("./errors/custom-error");
+const CustomError = require('./errors/custom-error');
 
 module.exports = (err, req, res, next) => {
   if (err instanceof CustomError) {

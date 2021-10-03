@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
 // Routes
-const mapRoute = require("./map.route")
+const mapRoute = require('./map.route');
 
 const router = Router();
 
@@ -18,8 +18,8 @@ const setRoutes = (routes) => {
 const defaultRoutes = [
   {
     path: '/map',
-    route: mapRoute,
-  },
+    route: mapRoute
+  }
   /*   {
     path: '/route',
     route: routeFile,

@@ -7,11 +7,10 @@ const mapService = require('../services/map.service');
 const router = Router();
 
 const validations = {
-  float(key) {
-    return body(key)
+  float: (key) =>
+    body(key)
       .isFloat()
-      .withMessage(`${key} coordinate should be (float) provided.`);
-  },
+      .withMessage(`${key} coordinate should be (float) provided.`)
 };
 
 router.post(
@@ -21,7 +20,7 @@ router.post(
     validations.float('right'),
     validations.float('top'),
     validations.float('bottom'),
-    validationMiddleware,
+    validationMiddleware
   ],
   async (req, res, next) => {
     const { left, right, top, bottom } = req.body;
